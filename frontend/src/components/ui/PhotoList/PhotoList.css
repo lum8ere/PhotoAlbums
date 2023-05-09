@@ -1,0 +1,10 @@
+.photoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 35px
+}
+.image {
+    margin-left: 5px; 
+    margin-right: 5px; 
+    margin-bottom: 15px;
+}
