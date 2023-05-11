@@ -15,11 +15,13 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "pg": "^8.10.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.1.1",
+    "@types/pg": "^8.6.6",
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "^5.59.5",
     "eslint": "^8.40.0",

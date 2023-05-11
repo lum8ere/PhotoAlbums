@@ -1,10 +1,10 @@
 import winston, { createLogger, transports, format } from "winston";
 
-let myCustomFormat = winston.format.combine(
-  winston.format.colorize({ all: true }),
-  winston.format.label({ label: "[LOGGER]" }),
-  winston.format.timestamp({ format: "YYYY-MM-DD HH:MM:SS" }),
-  winston.format.printf((info: any) => {
+let myCustomFormat = format.combine(
+  format.colorize({ all: true }),
+  format.label({ label: "[LOGGER]" }),
+  format.timestamp({ format: "YYYY-MM-DD HH:MM:SS" }),
+  format.printf((info: any) => {
     return `${info.label} ${info.timestamp} ${info.level}: ${info.message}`;
   })
 );
@@ -17,14 +17,14 @@ winston.addColors({
 });
 
 var transportsArr = [
-  new winston.transports.Console({
+  new transports.Console({
     format: winston.format.combine(myCustomFormat),
   }),
 ];
 
 var logsLevel = "info";
 
-const logger = winston.createLogger({
+const logger = createLogger({
   level: logsLevel,
   transports: transportsArr,
 });

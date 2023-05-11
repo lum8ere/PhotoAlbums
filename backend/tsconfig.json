@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": ".",
-    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "src",
+    // "paths": {
+    //   "~/*": ["src/*"],
+    // },
     "esModuleInterop": true,
     "typeRoots": ["./node_modules/@types", "./src/types"],
     /* Modules */
