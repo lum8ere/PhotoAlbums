@@ -2,7 +2,7 @@ import { Model, Table, ForeignKey, Column, DataType } from 'sequelize-typescript
 import UserModel from 'models/user.model';
 import RoleModel from 'models/role.model';
 
-const { UUID } = DataType;
+const { UUID, INTEGER } = DataType;
 
 @Table({
   tableName: 'user_role',
@@ -18,8 +18,8 @@ export default class UserRoleModel extends Model<UserRoleModel> {
 
   @ForeignKey(() => RoleModel)
   @Column({
-    type: UUID,
+    type: INTEGER,
     allowNull: false,
   })
-  role_id!: string;
+  role_id!: number;
 }

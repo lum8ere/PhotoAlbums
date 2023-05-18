@@ -85,4 +85,12 @@ export default class UserModel extends Model<
     }
     return this.roles || [];
   }
+
+  async setRoles(roleIds: number[]): Promise<void> {
+    await UserRoleModel.destroy({ where: { user_id: this.user_id } });
+    if (roleIds && roleIds.length > 0) {
+      const userRoles = roleIds.map((roleId) => ({ user_id: this.user_id!, role_id: roleId }));
+      await UserRoleModel.bulkCreate(userRoles as UserRoleModel[]);
+    }
+  }
 }

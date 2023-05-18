@@ -20,7 +20,7 @@ const verifyToken = async (
   }
 
   try {
-    const decoded: any = jwt.verify(token, process.env.SECRET);
+    const decoded: any = jwt.verify(token, 'test');
     req.userId = decoded.id;
     next();
   } catch (err) {

@@ -14,10 +14,10 @@ import { v4 as uuidv4 } from 'uuid';
 import UserModel from 'models/user.model';
 import UserRoleModel from 'models/userRole.model';
 
-const { STRING, UUID } = DataType;
+const { STRING, INTEGER } = DataType;
 
 interface RoleAttributes {
-  role_id: string;
+  role_id: number;
   name: string;
 }
 
@@ -32,12 +32,11 @@ export default class RoleModel extends Model<
   RoleCreationAttributes
 > {
   @PrimaryKey
-  @Default(uuidv4)
   @Column({
-    type: UUID,
+    type: INTEGER,
     allowNull: false,
   })
-  role_id!: string;
+  role_id!: number;
 
   @AllowNull(false)
   @NotEmpty

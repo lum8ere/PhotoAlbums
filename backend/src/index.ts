@@ -11,19 +11,21 @@ import RoleModel from 'models/role.model';
 const app = express();
 
 app.use(bodyParser.json())
-app.use('/api/users', userRouter);
+// app.use('/api/users', userRouter);
+require('./routers/auth.routes') (app);
+require('./routers/user.routes') (app);
 
 const initial = () => {
   RoleModel.create({
-    role_id: uuidv4(),
+    role_id: 1,
     name: "user"
   });
   RoleModel.create({
-    role_id: uuidv4(),
+    role_id: 2,
     name: "moderator"
   });
   RoleModel.create({
-    role_id: uuidv4(),
+    role_id: 3,
     name: "admin"
   });
 }
