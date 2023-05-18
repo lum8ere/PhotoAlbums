@@ -7,5 +7,5 @@ export const connection = new Sequelize({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   dialect: 'postgres',
-  models: [__dirname + '/models'] 
+  models: [__dirname + '/**/*.model.ts'] 
 })

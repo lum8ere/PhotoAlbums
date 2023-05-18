@@ -29,12 +29,12 @@ export class UserController {
     }
   
     public static async createUser(req: Request, res: Response): Promise<void> {
-        const { login, email, password, first_name, last_name, phone } = req.body;
+        const { username, email, password, first_name, last_name, phone } = req.body;
         logger.debug('[BODY]', req.body)
         try {
           const user = await UserModel.create({
             user_id: uuidv4(),
-            login,
+            username,
             email,
             password,
             first_name,
@@ -49,13 +49,13 @@ export class UserController {
   
     public static async updateUser(req: Request, res: Response): Promise<void> {
       const userId: string = req.params.id;
-      const { login, email, password, first_name, last_name, phone } = req.body;
+      const { username, email, password, first_name, last_name, phone } = req.body;
   
       try {
         const user = await UserModel.findByPk(userId);
         if (user) {
           await user.update({
-            login,
+            username,
             email,
             password,
             first_name,
