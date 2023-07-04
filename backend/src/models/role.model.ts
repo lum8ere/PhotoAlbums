@@ -16,7 +16,7 @@ import UserRoleModel from 'models/userRole.model';
 
 const { STRING, INTEGER } = DataType;
 
-interface RoleAttributes {
+export interface RoleAttributes {
   role_id: number;
   name: string;
 }

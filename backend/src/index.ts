@@ -1,19 +1,18 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import 'dotenv/config';
-import { v4 as uuidv4 } from 'uuid';
 
 import logger from 'shared/logger';
-import { connection } from 'db'
-import { userRouter } from 'routers/userRouters';
 import RoleModel from 'models/role.model';
+
+import { connection } from 'db';
+import { createApolloServer, applyApolloServerMiddleware } from './graphql/apolloServer';
 
 const app = express();
 
-app.use(bodyParser.json())
-// app.use('/api/users', userRouter);
-require('./routers/auth.routes') (app);
-require('./routers/user.routes') (app);
+app.use(cors());
+app.use(bodyParser.json());
 
 const initial = () => {
   RoleModel.create({
@@ -32,19 +31,18 @@ const initial = () => {
 
 const start = async (): Promise<void> => {
   try {
-    connection.authenticate().then(async() => {
-      logger.info('database connected');
-      try {
-        await connection.sync({ force: true }).then(()=> {
-          initial();
-        })
-      } catch (e) {
-        logger.error(e)
-      }
-    })
+    await connection.authenticate();
+    logger.info('database connected');
+
+    await connection.sync({ force: true });
+    initial();
+
+    const server = createApolloServer();
+    applyApolloServerMiddleware(server, app);
 
     app.listen(process.env.DB_PORT, () => {
       logger.info(`Server started on port ${process.env.DB_PORT}!`);
+      logger.info(`ApolloServer launched by "http://localhost:3000/graphql"`)
     });
   } catch (e) {
     console.log(e)
@@ -53,4 +51,3 @@ const start = async (): Promise<void> => {
 }
 
 void start();
-

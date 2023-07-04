@@ -1,9 +1,9 @@
 import { Op } from "sequelize";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import 'dotenv/config';
+import { Request, Response } from "express";
+import "dotenv/config";
 import UserModel from "models/user.model";
 import RoleModel from "models/role.model";
 import logger from "shared/logger";
@@ -14,7 +14,7 @@ export class AuthController {
       const { username, email, password, first_name, last_name, phone, roles } =
         req.body;
 
-        logger.debug(req.body)
+      logger.debug(req.body);
 
       const hashedPassword = await bcrypt.hash(password, 8);
       const user = await UserModel.create({
@@ -42,7 +42,14 @@ export class AuthController {
 
       await user.setRoles(roleIds);
 
-      res.send({ message: "User was registered successfully!" });
+      // res.send({ message: "User was registered successfully!" });
+      res.status(200).send({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        // roles: authorities,
+        // accessToken: token,
+      });
     } catch (e) {
       res.status(500).send({ message: "test" });
     }
@@ -68,7 +75,7 @@ export class AuthController {
         return;
       }
 
-      const token = jwt.sign({ id: user.id }, 'test', {
+      const token = jwt.sign({ id: user.id }, "test", {
         expiresIn: 86400, // 24 hours
       });
 
