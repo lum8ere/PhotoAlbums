@@ -1,17 +1,26 @@
 import { makeExecutableSchema } from "graphql-tools";
-import { ApolloServer, ExpressContext  } from "apollo-server-express";
+import { applyMiddleware } from "graphql-middleware";
+import { ApolloServer } from "apollo-server-express";
 import { Express } from "express";
 
-import resolvers from "graphql/resolvers/index";
+import { permissions } from 'guards/index'
+import { resolvers } from "graphql/resolvers/index";
 import typeDefs from "graphql/schemas/index";
-import { createContext } from "graphql/context/context";
 
 export const createApolloServer = (): ApolloServer => {
   const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
   });
-  const server = new ApolloServer({ schema, context: createContext, });
+
+  const schemaWithPermissions = applyMiddleware(schema, ...[permissions]);
+  const server = new ApolloServer({ 
+    schema: schemaWithPermissions,
+    // schema,
+    context: ({ request, resquest }: any) => ({
+      request,
+      resquest,
+    }), });
   return server;
 };
 

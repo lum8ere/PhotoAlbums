@@ -18,8 +18,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
-    roles: [Role]
+    getUser: [User]
+    getRoles: [Role]
   }
 
   type Mutation {
@@ -29,8 +29,6 @@ const typeDefs = gql`
     createRole(input: CreateRoleInput): Role
     updateRole(role_id: Int!, input: UpdateRoleInput): Role
     deleteRole(role_id: Int!): Role
-    signup(input: SignupInput): AuthPayload
-    signin(input: SigninInput): AuthPayload
   }
 
   input CreateUserInput {
@@ -59,27 +57,22 @@ const typeDefs = gql`
     name: String
   }
 
-  input SignupInput {
-    username: String!
-    email: String!
-    password: String!
-    first_name: String
-    last_name: String
-    phone: String
-    roles: [String]
+  type User {
+    user_id: String
+    username: String
+    password: String
+    token: String
   }
-
-  input SigninInput {
+  
+  input userInput {
     username: String!
     password: String!
-  }
-
-  type AuthPayload {
-    user_id: ID!
-    username: String!
     email: String!
-    roles: [String]
-    accessToken: String!
+  }
+  
+  type Mutation {
+    register(input: userInput): User
+    login(input: userInput): User
   }
 `;
 

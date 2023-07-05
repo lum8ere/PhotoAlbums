@@ -14,7 +14,7 @@ declare global {
       POOL_MIN: number;
       POOL_ACQUIRE: number;
       POOL_IDLE: number;
-      SECRET: string;
+      JWT_SECRET: string;
     }
   }
 }

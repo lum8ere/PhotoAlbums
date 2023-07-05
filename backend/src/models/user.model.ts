@@ -61,17 +61,14 @@ export default class UserModel extends Model<
   password!: string;
 
   @AllowNull(true)
-  @NotEmpty
   @Column(STRING)
   first_name!: string;
 
   @AllowNull(true)
-  @NotEmpty
   @Column(STRING)
   last_name!: string;
 
   @AllowNull(true)
-  @NotEmpty
   @Column(STRING)
   phone!: string;
 

@@ -42,16 +42,16 @@ export class AuthController {
 
       await user.setRoles(roleIds);
 
-      // res.send({ message: "User was registered successfully!" });
+      // Send the successful response
       res.status(200).send({
-        id: user.id,
+        user_id: user.user_id,
         username: user.username,
         email: user.email,
-        // roles: authorities,
-        // accessToken: token,
+        roles: roles, // Assuming you want to return the roles provided in the request
       });
     } catch (e) {
-      res.status(500).send({ message: "test" });
+      // Handle any errors that occurred during registration
+      res.status(500).send({ message: "Error occurred during signup" });
     }
   }
 

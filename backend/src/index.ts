@@ -7,7 +7,7 @@ import logger from 'shared/logger';
 import RoleModel from 'models/role.model';
 
 import { connection } from 'db';
-import { createApolloServer, applyApolloServerMiddleware } from './graphql/apolloServer';
+import { createApolloServer, applyApolloServerMiddleware } from 'graphql/apolloServer';
 
 const app = express();
 
